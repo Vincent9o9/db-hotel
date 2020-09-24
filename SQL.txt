@@ -1,0 +1,32 @@
+1.	SELECT * 
+FROM `ospiti` 
+WHERE `document_type` = 'CI';	
+
+2.	SELECT * 
+FROM `ospiti` 
+WHERE `date_of_birth` >= '1989-01-01';
+
+3.	SELECT * 
+FROM `ospiti` 
+WHERE `date_of_birth` < '2000-09-24';
+
+
+4.	SELECT * 
+FROM `ospiti` 
+WHERE `name` LIKE 'D%';
+
+
+5.	SELECT COUNT(`id`) 
+FROM `pagamenti` 
+WHERE `status`= 'accepted';
+
+
+6.	SELECT MAX(`price`) 
+FROM `pagamenti`;
+
+7.	SELECT * 
+FROM `ospiti` 
+WHERE YEAR(`date_of_birth`) = '1975' AND `document_type` = 'Driver License';
+
+8.	SELECT SUM(`beds`) 
+FROM `stanze`;
