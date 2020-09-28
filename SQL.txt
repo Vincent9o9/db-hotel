@@ -30,3 +30,19 @@ WHERE YEAR(`date_of_birth`) = '1975' AND `document_type` = 'Driver License';
 
 8.	SELECT SUM(`beds`) 
 FROM `stanze`;
+
+
+ESERCIZIO 2
+
+
+1.      SELECT COUNT(ospiti.id),YEAR(ospiti.date_of_birth)
+        FROM `ospiti`
+        GROUP BY YEAR(ospiti.date_of_birth);
+
+2.      SELECT SUM(pagamenti.price), pagamenti.status
+        FROM `pagamenti`
+        GROUP BY `status`;
+
+3.      SELECT `stanza_id`, COUNT(stanza_id)
+        FROM`prenotazioni`
+        GROUP BY  `stanza_id`;
