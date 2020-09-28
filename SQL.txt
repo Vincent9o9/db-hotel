@@ -1,34 +1,34 @@
-1.	SELECT * 
-FROM `ospiti` 
-WHERE `document_type` = 'CI';	
+1.	SELECT *
+FROM `ospiti`
+WHERE `document_type` = 'CI';
 
-2.	SELECT * 
-FROM `ospiti` 
+2.	SELECT *
+FROM `ospiti`
 WHERE `date_of_birth` >= '1989-01-01';
 
-3.	SELECT * 
-FROM `ospiti` 
+3.	SELECT *
+FROM `ospiti`
 WHERE `date_of_birth` < '2000-09-24';
 
 
-4.	SELECT * 
-FROM `ospiti` 
+4.	SELECT *
+FROM `ospiti`
 WHERE `name` LIKE 'D%';
 
 
-5.	SELECT COUNT(`id`) 
-FROM `pagamenti` 
+5.	SELECT COUNT(`id`)
+FROM `pagamenti`
 WHERE `status`= 'accepted';
 
 
-6.	SELECT MAX(`price`) 
+6.	SELECT MAX(`price`)
 FROM `pagamenti`;
 
-7.	SELECT * 
-FROM `ospiti` 
+7.	SELECT *
+FROM `ospiti`
 WHERE YEAR(`date_of_birth`) = '1975' AND `document_type` = 'Driver License';
 
-8.	SELECT SUM(`beds`) 
+8.	SELECT SUM(`beds`)
 FROM `stanze`;
 
 
@@ -46,3 +46,26 @@ ESERCIZIO 2
 3.      SELECT `stanza_id`, COUNT(stanza_id)
         FROM`prenotazioni`
         GROUP BY  `stanza_id`;
+
+4.      SELECT `prenotazione_id`, ospiti.name, ospiti.lastname
+        FROM `prenotazioni_has_ospiti`
+        INNER JOIN `ospiti`
+        ON ospiti.id = prenotazioni_has_ospiti.ospite_id;
+
+5.
+
+6.      SELECT SUM(pagamenti.price)
+        FROM `prenotazioni`
+        INNER JOIN `stanze`
+        ON stanze.id = prenotazioni.stanza_id
+        INNER JOIN `pagamenti`
+        ON pagamenti.prenotazione_id = prenotazioni.id
+        WHERE stanze.floor = 1;
+
+7.      SELECT paganti.name, paganti.lastname, paganti.address, pagamenti.price
+        FROM `paganti`
+        INNER JOIN `pagamenti`
+        ON pagamenti.pagante_id = paganti.id
+        INNER JOIN `prenotazioni`
+        ON prenotazioni.id = pagamenti.prenotazione_id
+        WHERE prenotazioni.id = 7;    
