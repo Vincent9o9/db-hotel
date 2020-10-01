@@ -1,35 +1,35 @@
-1.	SELECT *
-FROM `ospiti`
-WHERE `document_type` = 'CI';
+1.	    SELECT *
+        FROM `ospiti`
+        WHERE `document_type` = 'CI';
 
-2.	SELECT *
-FROM `ospiti`
-WHERE `date_of_birth` >= '1989-01-01';
+2.	    SELECT *
+        FROM `ospiti`
+        WHERE `date_of_birth` >= '1989-01-01';
 
-3.	SELECT *
-FROM `ospiti`
-WHERE `date_of_birth` < '2000-09-24';
-
-
-4.	SELECT *
-FROM `ospiti`
-WHERE `name` LIKE 'D%';
+3.	    SELECT *
+        FROM `ospiti`
+        WHERE `date_of_birth` < '2000-09-24';
 
 
-5.	SELECT COUNT(`id`)
-FROM `pagamenti`
-WHERE `status`= 'accepted';
+4.	    SELECT *
+        FROM `ospiti`
+        WHERE `name` LIKE 'D%';
 
 
-6.	SELECT MAX(`price`)
-FROM `pagamenti`;
+5.	    SELECT COUNT(`id`)
+        FROM `pagamenti`
+        WHERE `status`= 'accepted';
 
-7.	SELECT *
-FROM `ospiti`
-WHERE YEAR(`date_of_birth`) = '1975' AND `document_type` = 'Driver License';
 
-8.	SELECT SUM(`beds`)
-FROM `stanze`;
+6.	    SELECT MAX(`price`)
+        FROM `pagamenti`;
+
+7.	    SELECT *
+        FROM `ospiti`
+        WHERE YEAR(`date_of_birth`) = '1975' AND `document_type` = 'Driver License';
+
+8.	    SELECT SUM(`beds`)
+        FROM `stanze`;
 
 
 ESERCIZIO 2
@@ -68,4 +68,26 @@ ESERCIZIO 2
         ON pagamenti.pagante_id = paganti.id
         INNER JOIN `prenotazioni`
         ON prenotazioni.id = pagamenti.prenotazione_id
-        WHERE prenotazioni.id = 7;    
+        WHERE prenotazioni.id = 7;
+
+
+ESERCIZIO 3
+
+1.      SELECT COUNT(prenotazioni.id), HOUR(prenotazioni.created_at)
+        FROM prenotazioni
+        GROUP BY HOUR(prenotazioni.created_at)
+        ORDER BY COUNT(prenotazioni.id) DESC;
+
+2.      SELECT stanze.id, stanze.room_number,
+        COUNT(prenotazioni.id)
+        FROM `stanze`
+        LEFT JOIN `prenotazioni` ON stanze.id = prenotazioni.stanza_id
+        GROUP BY stanze.id, stanze.room_number
+        HAVING COUNT(prenotazioni.id) = 0;
+
+3.      SELECT COUNT(prenotazioni_has_ospiti.ospite_id), ospiti.id, ospiti.name, ospiti.lastname
+        FROM prenotazioni_has_ospiti
+        INNER JOIN ospiti
+        ON prenotazioni_has_ospiti.ospite_id = ospiti.id
+        GROUP BY ospiti.id
+        HAVING COUNT(prenotazioni_has_ospiti.ospite_id)>'2';
